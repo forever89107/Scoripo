@@ -6,6 +6,7 @@
         <artifactId>Scorpio-Server</artifactId>
         <groupId>com.my</groupId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath> <!-- this must match your parent pom location -->
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -36,7 +37,6 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus</artifactId>
-            <version>${baomidou.mp.version}</version>
         </dependency>
         <!-- HMacSha1 encrypt -->
         <dependency>
