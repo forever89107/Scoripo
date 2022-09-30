@@ -15,7 +15,6 @@
     <name>Scorpio-Server</name>
     <description>my tool</description>
     <properties>
-<!--        <server.version>0.0.2</server.version>-->
         <java.version>11</java.version>
         <spring.boot.version>2.7.3</spring.boot.version>
         <spring.test.version>2.7.3</spring.test.version>
@@ -30,7 +29,6 @@
         <postgres.version>42.5.0</postgres.version>
         <mariadb.version>3.0.4</mariadb.version>
         <sqllite.version>3.36.0.3</sqllite.version>
-
 
     </properties>
 
@@ -133,6 +131,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
     <build>
         <plugins>
             <plugin>
