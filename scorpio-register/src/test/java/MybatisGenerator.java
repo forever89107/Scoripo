@@ -9,38 +9,38 @@ import java.util.Collections;
 
 public class MybatisGenerator {
     private static final String database = "my_side_db";
-    private static final String module = "scorpio-register";
-    private static final String pakage = "com.pglite.register";
-    private static final String jdbcURL = "jdbc:postgresql://loaclhost:5432/";
+    private static final String module = "/scorpio-register";
+    private static final String packager = "com.my.register.generator";
+    private static final String jdbc = "jdbc:postgresql://localhost:5432/";
     private static final String username = "postgres";
-    private static final String pwd = "postgres";
-    private static final String schema = "user";
+    private static final String pwd = "postgresql";
 
     public static void main(String[] args) {
         //1、DB connection config
-        FastAutoGenerator.create(jdbcURL + database, username, pwd)
+        FastAutoGenerator.create(jdbc + database, username, pwd)
                 //2、Global config
                 .globalConfig(builder -> builder.author("MBG") // 设置作者名
-                        .outputDir(System.getProperty("user.dir") + module + "/src/main/java/generator") //output dir config
+                        .outputDir(System.getProperty("user.dir") + module + "/src/main/java/") //output dir config
                         .commentDate("yyyy-MM-dd hh:mm:ss")   //時間戳記
                         .dateType(DateType.ONLY_DATE)   //TIME_PACK=LocalDateTime;ONLY_DATE=Date;
 //                        .fileOverride()   //覆蓋之前的文件
-                        .enableSwagger()   //開啟 swagger 模式
+//                        .enableSwagger()   //開啟 swagger 模式
                         .disableOpenDir() //禁止打開輸出目錄
                         .build())
                 //3、package config
-                .packageConfig(builder -> builder.parent(pakage) // parent package config
-//                        .moduleName("pglite-user")   //new package below  parent
-                        .entity("entity")   //pojo entity
-                        .service("service") //Service 包名
-                        .serviceImpl("serviceImpl") // ***ServiceImpl 包名
-                        .xml("mapperXML")  //Mapper XML 包名
-                        .mapper("mapper")   //Mapper 包名
-                        .controller("controller") //Controller 包名
-                        .pathInfo(Collections.singletonMap(OutputFile.mapperXml, System.getProperty("user.dir") + module + "/src/main/resources/mapper")) //指定某類型檔案生成至指定位置
-                        .build())
+                .packageConfig(builder ->
+                        builder.parent(packager) // parent package config
+//                        .moduleName("scorpio-user")   //new package below  parent
+                                .entity("entity")   //pojo entity
+                                .service("service") //Service 包名
+                                .serviceImpl("serviceImpl") // ***ServiceImpl 包名
+                                .xml("mapperXML")  //Mapper XML 包名
+                                .mapper("mapper")   //Mapper 包名
+                                .controller("controller") //Controller 包名
+                                .pathInfo(Collections.singletonMap(OutputFile.mapperXml, System.getProperty("user.dir") + module + "/src/main/resources/mapper")) //指定某類型檔案生成至指定位置
+                                .build())
                 //4、strategy config
-                .strategyConfig(builder -> builder.addInclude(schema) // include table
+                .strategyConfig(builder -> builder.addInclude("user") // include table
                         .enableSkipView()// skip view gen
                         // Service Builder
                         .serviceBuilder()
