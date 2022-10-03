@@ -29,7 +29,11 @@ public enum ErrorCode {
    /** SERVICE_UNAVAILABLE.*/
    SERVICE_UNAVAILABLE(503, "對不起，服務負載過重，請稍後操作！"),
 
-   // -------請假（20399） end---------//
+   // -------用户（20000） start---------//
+   ACCOUNT_NOT_FOUND(20000,"查無此用戶"),
+   PWD_ERROR(20001,"密碼錯誤"),
+   ILLEGAL_ACCOUNT(20002,"用戶為非法狀態"),
+   // -------用户（20099） end---------//
 
    ;
    private final int code;

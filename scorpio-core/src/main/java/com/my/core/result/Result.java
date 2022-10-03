@@ -103,6 +103,11 @@ public class Result<T> implements Serializable {
         changeErrorCode(ErrorCode.UNAUTHORIZED);
     }
 
+    /**
+     * FORBIDDEN.
+     */
+    public void forbidden() { changeErrorCode(ErrorCode.FORBIDDEN); }
+
 
     /**
      * Illegal_Parameter.

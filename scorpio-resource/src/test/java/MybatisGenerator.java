@@ -9,8 +9,8 @@ import java.util.Collections;
 
 public class MybatisGenerator {
     private static final String database = "my_side_db";
-    private static final String module = "/scorpio-login";
-    private static final String packager = "com.my.login.generator";
+    private static final String module = "/scorpio-resource";
+    private static final String packager = "com.my.resource.generator";
     private static final String jdbc = "jdbc:postgresql://localhost:5432/";
     private static final String username = "postgres";
     private static final String pwd = "postgresql";
