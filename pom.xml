@@ -37,6 +37,8 @@
         <module>scorpio-core</module>
         <module>scorpio-login</module>
         <module>scorpio-register</module>
+        <module>scorpio-security</module>
+        <module>scorpio-resource</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -128,6 +130,33 @@
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-spring-boot-starter</artifactId>
                 <version>${jasypt.version}</version>
+            </dependency>
+
+            <!-- modules -->
+            <dependency>
+                <groupId>com.my</groupId>
+                <artifactId>scorpio-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.my</groupId>
+                <artifactId>scorpio-security</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.my</groupId>
+                <artifactId>scorpio-login</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.my</groupId>
+                <artifactId>scorpio-register</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.my</groupId>
+                <artifactId>scorpio-resource</artifactId>
+                <version>${project.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
