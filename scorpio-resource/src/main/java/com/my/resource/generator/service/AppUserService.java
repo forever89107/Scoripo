@@ -22,7 +22,7 @@ public interface AppUserService extends IService<OrmUser> {
     /** Get */
     Result<AppUserResponse> getUserById(Integer id);
 
-    Result<AppUserResponse> getUserByName(String name);
+    OrmUser getUserByUsername(String username);
 
     Result<List<AppUserResponse>> getAllUser(int page, int pageSize);
 

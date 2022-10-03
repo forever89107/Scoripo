@@ -60,12 +60,11 @@ public class AppUserServiceImpl extends ServiceImpl<UserMapper, OrmUser> impleme
     }
 
     @Override
-    public Result<AppUserResponse> getUserByName(String name) {
+    public OrmUser getUserByUsername(String username) {
         QueryWrapper<OrmUser> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("name", name.trim());
-        OrmUser user = mapper.selectOne(queryWrapper);
-        AppUserResponse response = AppUserConverter.toAppUserResponse(user);
-        return new Result<>(response);
+        queryWrapper.eq("username", username.trim());
+        return mapper.selectOne(queryWrapper);
+
     }
 
     @Override

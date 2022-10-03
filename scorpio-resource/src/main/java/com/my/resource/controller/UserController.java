@@ -1,9 +1,13 @@
 package com.my.resource.controller;
 
 
+import com.my.core.assertions.ServerAssert;
 import com.my.core.error.ErrorCode;
 import com.my.core.result.Result;
+import com.my.resource.converter.AppUserConverter;
 import com.my.resource.entity.app_user.AppUserRequest;
+import com.my.resource.entity.app_user.AppUserResponse;
+import com.my.resource.generator.entity.OrmUser;
 import com.my.resource.generator.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -40,8 +44,11 @@ public class UserController {
     }
 
     @GetMapping("/name")
-    public Result<?> getUserById(@RequestParam(value = "name") String name) {
-        return appUserService.getUserByName(name);
+    public Result<?> getUserById(@RequestParam(value = "username") String username) {
+        OrmUser ormUser = appUserService.getUserByUsername(username);
+        ServerAssert.notNull(ormUser, ErrorCode.ACCOUNT_NOT_FOUND);
+        AppUserResponse response = AppUserConverter.toAppUserResponse(ormUser);
+        return new Result<>(response);
     }
 
     @GetMapping("/all")
