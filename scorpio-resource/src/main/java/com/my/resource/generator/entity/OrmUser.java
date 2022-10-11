@@ -1,17 +1,20 @@
 package com.my.resource.generator.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+
 import java.io.Serializable;
 import java.util.Date;
+
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author MBG
@@ -24,13 +27,12 @@ public class OrmUser extends Model<OrmUser> {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId("user_id")
+    @TableId(value = "user_id", type = IdType.AUTO)
     private Integer userId;
 
     /**
      * uuid
      */
-    @TableId("uuid")
     private String uuid;
 
     /**

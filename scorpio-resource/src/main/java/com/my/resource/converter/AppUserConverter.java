@@ -1,10 +1,12 @@
 package com.my.resource.converter;
 
+import com.my.core.constant.Operator;
 import com.my.core.util.MD5Util;
 import com.my.resource.entity.app_user.AppUserRequest;
 import com.my.resource.entity.app_user.AppUserResponse;
 import com.my.resource.generator.entity.OrmUser;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -19,20 +21,23 @@ public class AppUserConverter {
         OrmUser user = new OrmUser();
         user.setUuid(MD5Util.encrypt(UUID.randomUUID().toString()));
         user.setName(req.getName());
+        user.setUsername(req.getUsername());
         user.setPassword(MD5Util.encrypt(req.getPwd()));
         user.setDisplayname(req.getDisplayname());
         user.setGender(req.getGender());
         user.setEmail(req.getEmail());
 
-        // <optional> here can set Authorities
-//        user.setAuthorities(request.getAuthorities());
+        user.setLastModifiedTime(new Date());
+        user.setUpdater(Operator.SYSTEM.name());
 
         return user;
     }
 
     public static AppUserResponse toAppUserResponse(OrmUser user) {
         AppUserResponse res = new AppUserResponse();
+        res.setId(user.getUserId());
         res.setName(user.getName());
+        res.setUsername(user.getUsername());
         res.setDisplayname(user.getDisplayname());
         String gender = (user.getGender() == 0) ? "female" : (user.getGender() == 1 ? "male" : "other");
         res.setGender(gender);
