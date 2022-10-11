@@ -33,6 +33,8 @@ public enum ErrorCode {
    ACCOUNT_NOT_FOUND(20000,"查無此用戶"),
    PWD_ERROR(20001,"密碼錯誤"),
    ILLEGAL_ACCOUNT(20002,"用戶為非法狀態"),
+   REGISTER_FAIL(20003,"This email address has been used."),
+
    // -------用户（20099） end---------//
 
    ;

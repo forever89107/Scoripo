@@ -9,7 +9,6 @@ import com.my.core.result.Result;
 import com.my.resource.converter.AppUserConverter;
 import com.my.resource.entity.app_user.AppUserRequest;
 import com.my.resource.entity.app_user.AppUserResponse;
-import com.my.resource.exception.UnprocessableEntityException;
 import com.my.resource.generator.entity.OrmUser;
 import com.my.resource.generator.mapper.UserMapper;
 import com.my.resource.generator.service.AppUserService;
@@ -45,7 +44,7 @@ public class AppUserServiceImpl extends ServiceImpl<UserMapper, OrmUser> impleme
                 .eq("email", req.getEmail().trim());
         boolean hadAccount = mapper.exists(queryWrapper);
         if (hadAccount) {
-            throw new UnprocessableEntityException("This email address has been used.");
+            throw new ServerRunTimeException(ErrorCode.REGISTER_FAIL);
         }
         OrmUser user = AppUserConverter.toOrmUser(req);
         return mapper.insert(user);
@@ -79,9 +78,7 @@ public class AppUserServiceImpl extends ServiceImpl<UserMapper, OrmUser> impleme
     @SneakyThrows
     @Override
     public int putUser(AppUserRequest req)  {
-        QueryWrapper<OrmUser> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username", req.getUsername());
-        OrmUser ormUser = mapper.selectOne(queryWrapper);
+        OrmUser ormUser = getUserByUsername(req.getUsername());
         if (null != ormUser) {
             ormUser.setDisplayname(req.getDisplayname());
             return mapper.updateById(ormUser);
@@ -92,9 +89,7 @@ public class AppUserServiceImpl extends ServiceImpl<UserMapper, OrmUser> impleme
     @SneakyThrows
     @Override
     public int deleteById(AppUserRequest req) {
-        QueryWrapper<OrmUser> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username", req.getUsername());
-        OrmUser ormUser = mapper.selectOne(queryWrapper);
+        OrmUser ormUser = getUserByUsername(req.getUsername());
         if (null != ormUser) {
             ormUser.setDisplayname(req.getDisplayname());
             return mapper.deleteById(ormUser);

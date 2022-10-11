@@ -41,6 +41,10 @@
             <groupId>com.my</groupId>
             <artifactId>scorpio-resource</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.my</groupId>
+            <artifactId>scorpio-security</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

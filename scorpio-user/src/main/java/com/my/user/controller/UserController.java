@@ -43,7 +43,7 @@ public class UserController {
         return appUserService.getUserById(id);
     }
 
-    @GetMapping("/name")
+    @GetMapping("/username")
     public Result<?> getUserById(@RequestParam(value = "username") String username) {
         OrmUser ormUser = appUserService.getUserByUsername(username);
         ServerAssert.notNull(ormUser, ErrorCode.ACCOUNT_NOT_FOUND);
@@ -58,7 +58,7 @@ public class UserController {
     }
 
     @PutMapping
-    public Result<?> putUser(AppUserRequest request) {
+    public Result<?> putUser(@RequestBody AppUserRequest request) {
         int res = appUserService.putUser(request);
         return (res > 0) ? new Result<>() : new Result<>(ErrorCode.INTERNAL_SERVER_ERROR);
     }

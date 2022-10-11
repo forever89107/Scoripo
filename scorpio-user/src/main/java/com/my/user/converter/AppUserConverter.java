@@ -29,6 +29,7 @@ public class AppUserConverter {
 
     public static AppUserResponse toAppUserResponse(OrmUser user) {
         AppUserResponse res = new AppUserResponse();
+        res.setId(user.getUserId());
         res.setName(user.getName());
         res.setDisplayname(user.getDisplayname());
         String gender = (user.getGender() == 0) ? "female" : (user.getGender() == 1 ? "male" : "other");

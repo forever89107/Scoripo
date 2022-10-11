@@ -60,6 +60,6 @@ public class SecurityConfig {
 
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/pglite/v4/pglogin");
+        return (web) -> web.ignoring().antMatchers(HttpMethod.POST,"/user","/login");
     }
 }
