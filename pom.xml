@@ -39,6 +39,7 @@
         <module>scorpio-register</module>
         <module>scorpio-security</module>
         <module>scorpio-resource</module>
+        <module>scorpio-user</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -156,6 +157,11 @@
             <dependency>
                 <groupId>com.my</groupId>
                 <artifactId>scorpio-resource</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.my</groupId>
+                <artifactId>scorpio-user</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>
