@@ -1,7 +1,8 @@
 package com.my.security.auth;
 
-import com.my.security.service.SecurityService;
+import com.my.security.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class AuthController {
     private final SecurityService securityService;
 
     @Autowired
-    public AuthController(SecurityService securityService) {
+    public AuthController(@Qualifier("AdminServiceImpl") SecurityService securityService) {
         this.securityService = securityService;
     }
 

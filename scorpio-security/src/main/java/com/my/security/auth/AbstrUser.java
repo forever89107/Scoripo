@@ -1,7 +1,7 @@
 package com.my.security.auth;
 
 
-import com.my.security.auth.constant.UserAuthority;
+import com.my.security.auth.constant.Authority;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class AbstrUser {
 
     protected String username;
     protected String password;
-    protected List<UserAuthority> authorities;
+    protected List<Authority> authorities;
 
     public String getUsername() {
         return username;
@@ -28,11 +28,11 @@ public class AbstrUser {
         this.password = password;
     }
 
-    public List<UserAuthority> getAuthorities() {
+    public List<Authority> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(List<UserAuthority> authorities) {
+    public void setAuthorities(List<Authority> authorities) {
         this.authorities = authorities;
     }
 

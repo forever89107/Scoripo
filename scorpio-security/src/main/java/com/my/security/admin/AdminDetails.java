@@ -1,41 +1,34 @@
-package com.my.security.auth.domain;
+package com.my.security.admin;
 
-import com.my.resource.generator.entity.OrmUser;
 import com.my.security.auth.AbstrUser;
-import com.my.security.auth.constant.UserAuthority;
+import com.my.security.auth.constant.Authority;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Getter
 @Setter
-public class DlAppUser implements UserDetails {
+public class AdminDetails implements UserDetails {
 
     private static AbstrUser abstrUser;
-    private static String uuid;
-    private static String name;
-    private static String displayName;
 
-    protected static final List<String> admin_user =
-            new ArrayList<>(Collections.singletonList("conqueror89107@gmail.com"));
+    protected static final Map<String, String> admin_user = Collections.singletonMap("sys_admin", "pgtalk168");
 
-    public DlAppUser(OrmUser ormUser) {
+    public AdminDetails(String username) {
+        if (!admin_user.containsKey(username)) return;
         AbstrUser abstrUser = new AbstrUser();
-        abstrUser.setUsername(ormUser.getUsername());
-        abstrUser.setPassword(ormUser.getPassword());
-        if (admin_user.contains(ormUser.getEmail()))
-            abstrUser.setAuthorities(Arrays.asList(UserAuthority.ADMIN, UserAuthority.NORMAL));
-        else
-            abstrUser.setAuthorities(Collections.singletonList(UserAuthority.NORMAL));
-        DlAppUser.abstrUser = abstrUser;
-        uuid = ormUser.getUuid();
-        name = ormUser.getName();
-        displayName = ormUser.getDisplayname();
+        abstrUser.setUsername(username);
+        abstrUser.setPassword(admin_user.get(username));
+        abstrUser.setAuthorities(Arrays.asList(Authority.ADMIN, Authority.USER));
+        AdminDetails.abstrUser = abstrUser;
     }
 
     @Override
