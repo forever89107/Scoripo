@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -40,10 +39,10 @@ public class AdminSecurityConfig {
         this.restAuthenticationEntryPoint = restAuthenticationEntryPoint;
     }
 
-    @Bean
-    WebSecurityCustomizer adminSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/auth");
-    }
+//    @Bean
+//    WebSecurityCustomizer adminSecurityCustomizer() {
+//        return (web) -> web.ignoring().antMatchers("/auth");
+//    }
 
     @Bean
     SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
@@ -58,8 +57,9 @@ public class AdminSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                /*.antMatchers().permitAll() admin login path*/
                 .antMatchers(HttpMethod.POST, "/register/**").hasAuthority(Authority.ADMIN.name())
-                .anyRequest().authenticated();
+                ;
         // 禁用 cache
         http.headers().cacheControl();
 

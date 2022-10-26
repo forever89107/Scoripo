@@ -10,8 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Getter
@@ -20,13 +18,10 @@ public class AdminDetails implements UserDetails {
 
     private static AbstrUser abstrUser;
 
-    protected static final Map<String, String> admin_user = Collections.singletonMap("sys_admin", "pgtalk168");
-
-    public AdminDetails(String username) {
-        if (!admin_user.containsKey(username)) return;
+    public AdminDetails(String username, String pwd) {
         AbstrUser abstrUser = new AbstrUser();
         abstrUser.setUsername(username);
-        abstrUser.setPassword(admin_user.get(username));
+        abstrUser.setPassword(pwd);
         abstrUser.setAuthorities(Arrays.asList(Authority.ADMIN, Authority.USER));
         AdminDetails.abstrUser = abstrUser;
     }

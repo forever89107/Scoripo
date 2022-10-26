@@ -41,7 +41,7 @@ public class AdminJwtFilter extends OncePerRequestFilter {
             String authToken = authHeader.substring(tokenHead.length());// The part after "Bearer "
             String username = jwtTokenUtil.getUserNameFromToken(authToken);
             //            log.info("checking username:{}", username);
-            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            if (username != null && adminService.isAdmin(username)  && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = adminService.getUserByUsername(username);
                 if (jwtTokenUtil.validateToken(authToken, userDetails)) {
                     UsernamePasswordAuthenticationToken authentication =

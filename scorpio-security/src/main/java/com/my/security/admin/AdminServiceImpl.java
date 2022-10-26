@@ -13,9 +13,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.Map;
+
 @Slf4j
 @Service("AdminServiceImpl")
 public class AdminServiceImpl implements UserDetailsService, SecurityService {
+
+    protected static final Map<String, String> admin_user = Collections.singletonMap("sys_admin", "@#!123456");
 
     private final JwtTokenUtil jwtTokenUtil;
 
@@ -26,7 +31,7 @@ public class AdminServiceImpl implements UserDetailsService, SecurityService {
 
     @Override
     public UserDetails getUserByUsername(String username) {
-        return new AdminDetails(username);
+        return new AdminDetails(username, admin_user.get(username));
     }
 
     @Override
@@ -47,4 +52,9 @@ public class AdminServiceImpl implements UserDetailsService, SecurityService {
         }
         throw new UsernameNotFoundException("Can not found Username");
     }
+
+    public Boolean isAdmin(String username) {
+        return admin_user.containsKey(username);
+    }
+
 }

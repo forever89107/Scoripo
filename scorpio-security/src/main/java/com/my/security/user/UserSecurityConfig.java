@@ -41,11 +41,6 @@ public class UserSecurityConfig {
     }
 
     @Bean
-    public WebSecurityCustomizer userSecurityCustomizer() {
-        return (web) -> web.ignoring().antMatchers("/pglite/**");
-    }
-
-    @Bean
     public SecurityFilterChain userFilterChain(HttpSecurity http) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
                 .authorizeRequests();
@@ -59,6 +54,7 @@ public class UserSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                /*.antMatchers().permitAll() login path*/
                 .anyRequest().authenticated();
         // 禁用 cache
         http.headers().cacheControl();
