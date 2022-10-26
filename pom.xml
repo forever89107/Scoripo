@@ -16,6 +16,8 @@
     <description>my tool</description>
     <properties>
         <java.version>11</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring.boot.version>2.7.3</spring.boot.version>
         <spring.test.version>2.7.3</spring.test.version>
         <lombok.version>1.18.24</lombok.version>
@@ -84,7 +86,12 @@
                 <version>${sqllite.version}</version>
             </dependency>
 
-
+            <!-- okhttp -->
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
             <!-- lombok -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -174,8 +181,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.1</version>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
             <plugin>
