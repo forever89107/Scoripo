@@ -3,6 +3,7 @@ package com.my.resource.generator.serviceImpl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.my.core.assertions.ServerAssert;
 import com.my.core.error.ErrorCode;
 import com.my.core.exception.ServerRunTimeException;
 import com.my.core.result.Result;
@@ -55,6 +56,7 @@ public class AppUserServiceImpl extends ServiceImpl<UserMapper, OrmUser> impleme
         QueryWrapper<OrmUser> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", id);
         OrmUser user = mapper.selectOne(queryWrapper);
+        ServerAssert.notNull(user, ErrorCode.ACCOUNT_NOT_FOUND);
         AppUserResponse response = AppUserConverter.toAppUserResponse(user);
         return new Result<>(response);
     }
@@ -77,7 +79,7 @@ public class AppUserServiceImpl extends ServiceImpl<UserMapper, OrmUser> impleme
 
     @SneakyThrows
     @Override
-    public int putUser(AppUserRequest req)  {
+    public int putUser(AppUserRequest req) {
         OrmUser ormUser = getUserByUsername(req.getUsername());
         if (null != ormUser) {
             ormUser.setDisplayname(req.getDisplayname());

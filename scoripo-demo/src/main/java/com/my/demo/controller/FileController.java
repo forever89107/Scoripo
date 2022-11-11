@@ -1,4 +1,4 @@
-package com.my.resource.controller;
+package com.my.demo.controller;
 
 import com.my.core.util.file.FileDownloadUtil;
 import com.my.core.util.file.FileUploadResponse;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 @RestController
-@RequestMapping(value = "/_scoripo/admin")
+@RequestMapping(value = "/_scoripo/file", produces = MediaType.APPLICATION_JSON_VALUE)
 public class FileController {
 
 

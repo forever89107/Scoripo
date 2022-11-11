@@ -31,6 +31,7 @@ public class AppUserConverter {
         AppUserResponse res = new AppUserResponse();
         res.setId(user.getUserId());
         res.setName(user.getName());
+        res.setUsername(user.getUsername());
         res.setDisplayname(user.getDisplayname());
         String gender = (user.getGender() == 0) ? "female" : (user.getGender() == 1 ? "male" : "other");
         res.setGender(gender);

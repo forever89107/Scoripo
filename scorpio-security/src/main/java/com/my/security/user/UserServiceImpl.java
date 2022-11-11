@@ -11,7 +11,6 @@ import com.my.security.SecurityService;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,17 +28,15 @@ import java.util.Map;
 public class UserServiceImpl implements UserDetailsService, SecurityService {
 
     // jwt secretKey
-    @Value("${jwt-secretKey}")
-    private String KEY;
+//    @Value("${jwt-secretKey}")
+    private final String KEY="3PTR9q7D@zgxm4bXRZmev#Rk2VBUH3g3";
 
 
     private final AppUserService appUserService;
-//    private final JwtTokenUtil jwtTokenUtil;
 
     @Autowired
     public UserServiceImpl(AppUserService appUserService) {
         this.appUserService = appUserService;
-//        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     @Override

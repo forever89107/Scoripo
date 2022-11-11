@@ -7,7 +7,6 @@ import com.my.core.util.JwtTokenUtil;
 import com.my.security.SecurityService;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,8 +21,8 @@ import java.util.*;
 public class AdminServiceImpl implements UserDetailsService, SecurityService {
 
     // jwt secretKey
-    @Value("${jwt-secretKey}")
-    private String KEY;
+//    @Value("${jwt-secretKey}")
+    private final String KEY="3PTR9q7D@zgxm4bXRZmev#Rk2VBUH3g3";
 
     protected static final Map<String, String> admin_user = Collections.singletonMap("sys_admin", "pgtalk168");
 

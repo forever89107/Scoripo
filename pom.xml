@@ -42,6 +42,7 @@
         <module>scorpio-security</module>
         <module>scorpio-resource</module>
         <module>scorpio-user</module>
+        <module>scoripo-demo</module>
     </modules>
     <dependencyManagement>
         <dependencies>

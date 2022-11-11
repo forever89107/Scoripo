@@ -1,4 +1,4 @@
-package com.my.user.controller;
+package com.my.demo.controller;
 
 
 import com.my.core.assertions.ServerAssert;
@@ -13,16 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * <p>
- * 前端控制器
- * </p>
- *
- * @author MBG
- * @since 2022-10-03 02:27:38
- */
+
 @RestController
-@RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/_scoripo/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
     private final AppUserService appUserService;
 
