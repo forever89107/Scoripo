@@ -1,14 +1,17 @@
 package com.my.security.user;
 
 import com.my.core.assertions.ServerAssert;
+import com.my.core.constant.Operator;
 import com.my.core.error.ErrorCode;
+import com.my.core.util.JwtTokenUtil;
 import com.my.core.util.MD5Util;
 import com.my.resource.generator.entity.OrmUser;
 import com.my.resource.generator.service.AppUserService;
 import com.my.security.SecurityService;
-import com.my.security.util.JwtTokenUtil;
+import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,17 +19,27 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 @Slf4j
 @Service("UserServiceImpl")
 public class UserServiceImpl implements UserDetailsService, SecurityService {
 
+    // jwt secretKey
+    @Value("${jwt-secretKey}")
+    private String KEY;
+
+
     private final AppUserService appUserService;
-    private final JwtTokenUtil jwtTokenUtil;
+//    private final JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    public UserServiceImpl(AppUserService appUserService, JwtTokenUtil jwtTokenUtil) {
+    public UserServiceImpl(AppUserService appUserService) {
         this.appUserService = appUserService;
-        this.jwtTokenUtil = jwtTokenUtil;
+//        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     @Override
@@ -44,7 +57,7 @@ public class UserServiceImpl implements UserDetailsService, SecurityService {
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return jwtTokenUtil.generateToken(userDetails);
+        return generateToken(userDetails.getUsername());
     }
 
     @Override
@@ -54,6 +67,43 @@ public class UserServiceImpl implements UserDetailsService, SecurityService {
             return userDetails;
         }
         throw new UsernameNotFoundException("Can not found Username");
+    }
 
+    @Override
+    public Boolean validateToken(String token, UserDetails userDetails) {
+        String username = getUserNameFromToken(token);
+        return username.equals(userDetails.getUsername()) && JwtTokenUtil.isTokenExpired(KEY, token);
+    }
+
+
+    @Override
+    public String generateToken(String username) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put(Claims.SUBJECT, username);
+        claims.put(Claims.ISSUER, Operator.SYSTEM.name());
+        claims.put("created", new Date());
+        return JwtTokenUtil.generateToken(KEY, claims, JwtTokenUtil.generateExpirationDate(Calendar.DATE, 365));
+    }
+
+    @Override
+    public String generateToken(String username, Date expireTime) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put(Claims.SUBJECT, username);
+        claims.put(Claims.ISSUER, Operator.SYSTEM.name());
+        claims.put(Claims.EXPIRATION, expireTime);
+        claims.put("created", new Date());
+        return JwtTokenUtil.generateToken(KEY, claims, expireTime);
+    }
+
+    @Override
+    public String getUserNameFromToken(String token) {
+        String username;
+        try {
+            Claims claims = JwtTokenUtil.getClaimsFromToken(KEY, token);
+            username = claims.getSubject();
+        } catch (Exception e) {
+            username = null;
+        }
+        return username;
     }
 }

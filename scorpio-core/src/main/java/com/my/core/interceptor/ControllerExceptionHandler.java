@@ -50,7 +50,7 @@ public class ControllerExceptionHandler<T>  {
      */
     @ExceptionHandler(ServerRunTimeException.class)
     @ResponseBody
-    public Result<T> pgliteException(ServerRunTimeException exception) {
+    public Result<T> serverException(ServerRunTimeException exception) {
         Result<T> result = new Result<>();
         if (log.isDebugEnabled()) {
             log.debug("自訂義錯誤[{}] {}", exception.getErrorCode().getCode(),

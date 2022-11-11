@@ -1,6 +1,5 @@
 package com.my.security.user;
 
-import com.my.security.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +23,10 @@ public class UserJwtFilter extends OncePerRequestFilter {
     private static final String tokenHead = "Bearer ";
 
     private final UserServiceImpl userService;
-    private final JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    public UserJwtFilter(UserServiceImpl userService, JwtTokenUtil jwtTokenUtil) {
+    public UserJwtFilter(UserServiceImpl userService) {
         this.userService = userService;
-        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     @Override
@@ -38,10 +35,10 @@ public class UserJwtFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (authHeader != null && authHeader.startsWith(tokenHead)) {
             String authToken = authHeader.substring(tokenHead.length());// The part after "Bearer "
-            String username = jwtTokenUtil.getUserNameFromToken(authToken);
+            String username = userService.getUserNameFromToken(authToken);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userService.getUserByUsername(username);
-                if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+                if (userService.validateToken(authToken, userDetails)) {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     log.info("authenticated user:{}", username);

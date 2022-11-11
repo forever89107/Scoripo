@@ -1,6 +1,5 @@
 package com.my.security.admin;
 
-import com.my.security.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +23,10 @@ public class AdminJwtFilter extends OncePerRequestFilter {
     private static final String tokenHead = "Bearer ";
 
     private final AdminServiceImpl adminService;
-    private final JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    public AdminJwtFilter(AdminServiceImpl adminService, JwtTokenUtil jwtTokenUtil) {
+    public AdminJwtFilter(AdminServiceImpl adminService) {
         this.adminService = adminService;
-        this.jwtTokenUtil = jwtTokenUtil;
     }
 
 
@@ -39,11 +36,10 @@ public class AdminJwtFilter extends OncePerRequestFilter {
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (authHeader != null && authHeader.startsWith(tokenHead)) {
             String authToken = authHeader.substring(tokenHead.length());// The part after "Bearer "
-            String username = jwtTokenUtil.getUserNameFromToken(authToken);
-            //            log.info("checking username:{}", username);
-            if (username != null && adminService.isAdmin(username)  && SecurityContextHolder.getContext().getAuthentication() == null) {
+            String username = adminService.getUserNameFromToken(authToken);
+            if (username != null  && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = adminService.getUserByUsername(username);
-                if (jwtTokenUtil.validateToken(authToken, userDetails)) {
+                if (adminService.validateToken(authToken, userDetails)) {
                     UsernamePasswordAuthenticationToken authentication =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

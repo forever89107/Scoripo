@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 @RestController
-@RequestMapping(value = "/_pglite/admin")
+@RequestMapping(value = "/_scoripo/admin")
 public class FileController {
 
 
