@@ -31,7 +31,15 @@
         <postgres.version>42.5.0</postgres.version>
         <mariadb.version>3.0.4</mariadb.version>
         <sqllite.version>3.36.0.3</sqllite.version>
-
+        <!--以下為新的-->
+        <mybatis.starter.version>2.2.2</mybatis.starter.version>
+        <mybatis.mapper.starter.version>4.2.3</mybatis.mapper.starter.version>
+        <mysql.connector.version>8.0.30</mysql.connector.version>
+        <druid.starter.version>1.2.18</druid.starter.version>
+        <fastjson.version>1.2.68</fastjson.version>
+        <guava.version>28.1-jre</guava.version>
+        <slf4j.version>1.7.30</slf4j.version>
+        <fastjson.version>1.2.68</fastjson.version>
     </properties>
 
     <packaging>pom</packaging>
@@ -43,6 +51,10 @@
         <module>scorpio-resource</module>
         <module>scorpio-user</module>
         <module>scoripo-demo</module>
+        <!--以下為新的-->
+        <module>scoripo-common</module>
+        <module>scoripo-common/common-mybatis</module>
+        <module>scoripo-global</module>
     </modules>
     <dependencyManagement>
         <dependencies>
