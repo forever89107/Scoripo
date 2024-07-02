@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+    <springProperty name="appName" source="spring.application.name"/>
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <destination>sl4j.ballbet.com:4560</destination>
+        <destination>sl4j.ballbet.com:4560</destination>
+        <keepAliveDuration>5 minutes</keepAliveDuration>
+        <connectionStrategy>
+            <random>
+                <connectionTTL>5 minutes</connectionTTL>
+            </random>
+        </connectionStrategy>
+        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"app":"${appName}"}</customFields>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <root>
+        <appender-ref ref="LOGSTASH"/>
+    </root>
+
+
+</configuration>

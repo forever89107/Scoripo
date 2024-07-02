@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: loc
+  application:
+    name: sc-provider
+
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        file-extension: properties
+        group: public
+        refresh:
+          enabled: true
+      discovery:
+        server-addr: 127.0.0.1:8848
+        username: nacos
+        password: nacos
+        # register-enabled: false
+        group: public
+    bootstrap:
+      enabled: true
+
+server:
+  port: 8001
+  servlet:
+    context-path: /api
