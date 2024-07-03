@@ -7,7 +7,7 @@
 *.swp
 
 # file: ~/.gitignore_global
-.idea
+.idea/
 
 # VSCode
 .vscode
@@ -26,8 +26,9 @@ heroku.json
 
 # Maven (from: https://github.com/github/gitignore/blob/master/Maven.gitignore)
 target/
-*.iml
+targets/
 pom.xml
+*.iml
 pom.properties
 pom.xml.tag
 pom.xml.releaseBackup
