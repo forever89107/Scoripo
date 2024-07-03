@@ -2,6 +2,7 @@ package com.my.common.utils;
 
 import org.springframework.util.StringUtils;
 
+@SuppressWarnings("unused")
 public class MobileUtils {
 
     public String getMobile(String mobile) {

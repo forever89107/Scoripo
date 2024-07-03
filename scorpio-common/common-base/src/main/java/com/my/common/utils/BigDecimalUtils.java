@@ -2,6 +2,7 @@ package com.my.common.utils;
 
 import java.math.BigDecimal;
 
+@SuppressWarnings("unused")
 public class BigDecimalUtils {
 
     public final static BigDecimal TEN_THOUSAND = new BigDecimal(10000);
@@ -17,34 +18,26 @@ public class BigDecimalUtils {
     /**
      * sum
      */
-    public static BigDecimal sum(BigDecimal ...in){
+    public static BigDecimal sum(BigDecimal... in) {
         BigDecimal result = BigDecimal.ZERO;
-        for (int i = 0; i < in.length; i++){
-            result = result.add(ifNullSet0(in[i]));
+        for (BigDecimal bigDecimal : in) {
+            result = result.add(ifNullSet0(bigDecimal));
         }
         return result;
     }
 
-      public static boolean commonCompare(BigDecimal amount, String operator, BigDecimal amount2) {
+    public static boolean commonCompare(BigDecimal amount, String operator, BigDecimal amount2) {
         int comparisonResult = amount.compareTo(amount2);
 
-        switch (operator) {
-            case "==":
-            case "=":
-                return comparisonResult == 0;
-            case "!=":
-                return comparisonResult != 0;
-            case "<":
-                return comparisonResult < 0;
-            case ">":
-                return comparisonResult > 0;
-            case ">=":
-                return comparisonResult >= 0;
-            case "<=":
-                return comparisonResult <= 0;
-            default:
-                return false;
-        }
+        return switch (operator) {
+            case "==", "=" -> comparisonResult == 0;
+            case "!=" -> comparisonResult != 0;
+            case "<" -> comparisonResult < 0;
+            case ">" -> comparisonResult > 0;
+            case ">=" -> comparisonResult >= 0;
+            case "<=" -> comparisonResult <= 0;
+            default -> false;
+        };
     }
 
     /**

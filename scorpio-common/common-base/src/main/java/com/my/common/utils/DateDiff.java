@@ -3,6 +3,7 @@ package com.my.common.utils;
 import java.util.Calendar;
 import java.util.Date;
 
+@SuppressWarnings("unused")
 public class DateDiff {
     public static long seconds(Date fromDate, Date endDate) {
         long to = endDate.getTime();

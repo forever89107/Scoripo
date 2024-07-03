@@ -2,6 +2,7 @@ package com.my.common.utils;
 
 import lombok.Getter;
 
+@SuppressWarnings("unused")
 public class RandomValidateCodeUtil {
 
     /**

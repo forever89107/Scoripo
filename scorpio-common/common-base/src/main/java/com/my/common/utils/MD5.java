@@ -8,6 +8,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
+@SuppressWarnings("unused")
 public class MD5 {
 
     private static String encodingCharset = "UTF-8";
@@ -21,10 +22,9 @@ public class MD5 {
             messageDigest.update(bytes);
             byte[] updateBytes = messageDigest.digest();
             int len = updateBytes.length;
-            char myChar[] = new char[len * 2];
+            char[] myChar = new char[len * 2];
             int k = 0;
-            for (int i = 0; i < len; i++) {
-                byte byte0 = updateBytes[i];
+            for (byte byte0 : updateBytes) {
                 myChar[k++] = hexDigits[byte0 >>> 4 & 0x0f];
                 myChar[k++] = hexDigits[byte0 & 0x0f];
             }
@@ -69,21 +69,18 @@ public class MD5 {
 
     /**
      * ASCII排序
-     *
-     * @param parameters
-     * @return
      */
     public static String toAscii(Map<String, String> parameters) {
         List<Map.Entry<String, String>> infoIds = new ArrayList<>(parameters.entrySet());
-        // 对所有传入参数按照字段名的 ASCII 码从小到大排序（字典序）
-        Collections.sort(infoIds, Comparator.comparing(o -> (o.getKey())));
-        StringBuffer sign = new StringBuffer();
+        // 對所有傳入參數按照字段名的 ASCII 碼從小到大排序（字典序）
+        infoIds.sort(Comparator.comparing(Map.Entry::getKey));
+        StringBuilder sign = new StringBuilder();
         for (Map.Entry<String, String> item : infoIds) {
             String k = item.getKey();
-            if (!StringUtils.isEmpty(item.getKey())) {
+            if (!StringUtils.hasLength(item.getKey())) {
                 Object v = item.getValue();
                 if (null != v && !ObjectUtils.isEmpty(v)) {
-                    sign.append(k + "=" + v + "&");
+                    sign.append(k).append("=").append(v).append("&");
                 }
             }
         }

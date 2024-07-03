@@ -28,12 +28,12 @@ public class UrlUtil {
         try {
             URL urlObj = new URL(url);
             String query = urlObj.getQuery();
-            String[] datas = query.split("\\&");
-            for (int i = 0, len = datas.length; i < len; i++) {
-                if (StringUtils.isEmpty(datas[i])) {
+            String[] datas = query.split("&");
+            for (String data : datas) {
+                if (StringUtils.isEmpty(data)) {
                     continue;
                 }
-                String[] paramArray = datas[i].split("\\=");
+                String[] paramArray = data.split("=");
                 if (paramArray.length < 2) {
                     continue;
                 }
@@ -46,7 +46,7 @@ public class UrlUtil {
     }
 
     /**
-     * 取代URL某参数param的值
+     * 取代URL某參數param的值
      */
     public static String replaceParam(String url, String paramName, String paramVal) {
         String result = url;
