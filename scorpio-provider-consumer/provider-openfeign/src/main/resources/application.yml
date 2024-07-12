@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: sc-provider
+
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        file-extension: yml
+        username: nacos
+        password: nacos
+
+  config:
+    import:
+      - optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}
