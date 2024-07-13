@@ -1,12 +1,11 @@
-package com.my.consumer;
+package com.my.openfeign.consumer;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.scheduling.annotation.EnableAsync;
 
-@SpringBootApplication(scanBasePackages = {"com.my.common", "com.my.consumer"})
+@SpringBootApplication(scanBasePackages = {"com.my.common", "com.my.openfeign.consumer"})
 @EnableFeignClients
 @EnableDiscoveryClient
 public class ConsumerOpenfeignApplication {

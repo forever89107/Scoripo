@@ -1,6 +1,6 @@
-package com.my.consumer.controller;
+package com.my.openfeign.consumer.controller;
 
-import com.my.consumer.service.ProviderService;
+import com.my.openfeign.consumer.service.ProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

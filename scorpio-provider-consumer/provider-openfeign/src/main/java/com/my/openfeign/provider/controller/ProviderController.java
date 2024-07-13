@@ -1,4 +1,4 @@
-package com.my.provider.controller;
+package com.my.openfeign.provider.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;

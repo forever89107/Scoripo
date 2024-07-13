@@ -1,4 +1,4 @@
-package com.my.consumer.service;
+package com.my.openfeign.consumer.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
