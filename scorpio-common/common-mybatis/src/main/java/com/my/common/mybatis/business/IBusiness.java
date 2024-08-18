@@ -9,74 +9,74 @@ import java.util.List;
 public interface IBusiness<T> {
 
     /**
-     * 持久化
+     * Persist the model
      */
     void save(T model);
 
     /**
-     * 批量持久化
+     * Batch persist
      */
     void save(List<T> models);
 
     /**
-     * 通過主鍵刪除
+     * Delete by primary key
      */
     void deleteById(Object id);
 
     /**
-     * 批量刪除
-     * eg：ids -> “1,2,3,4”
+     * Batch delete
+     * eg: ids -> "1,2,3,4"
      */
     void deleteByIds(String ids);
 
     /**
-     * 更新
+     * Update selectively by primary key
      */
     void updateByPrimaryKeySelective(T model);
 
     /**
-     * 更新
+     * Update selectively by condition
      */
     void updateByConditionSelective(T model, Condition condition);
 
     /**
-     * 全量更新
+     * Update fully by primary key
      */
     int updateByPrimaryKey(T model);
 
     /**
-     * 通過ID查找
+     * Find by ID
      */
     T findById(Object id);
 
     /**
-     * 通過Model中某個成員變量名稱（非數據表中column的名稱）查找,value需符合unique約束
+     * Find by a specific field in the model (not the column name in the database), the value must satisfy unique constraints
      */
     T findBy(String fieldName, Object value) throws GlobalException;
 
     /**
-     * 通過滿足熟悉條件的全部數據
+     * Find all by a specific field in the model
      */
     List<T> findAllBy(String fieldName, Object value) throws GlobalException;
 
     /**
-     * 通過多個ID查找
-     * eg：ids -> “1,2,3,4”
+     * Find by multiple IDs
+     * eg: ids -> "1,2,3,4"
      */
     List<T> findByIds(String ids);
 
     /**
-     * 根據條件查找
+     * Find by condition
      */
     List<T> findByCondition(Condition condition);
 
     /**
-     * 根據條件查找
+     * Find by condition with pagination
      */
     List<T> findByCondition(Condition condition, RowBounds rowBounds);
 
     /**
-     * 獲取所有
+     * Find all
      */
     List<T> findAll();
 

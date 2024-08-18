@@ -8,9 +8,9 @@ import tk.mybatis.mapper.provider.SpecialProvider;
 
 import java.util.Set;
 @SuppressWarnings("unused")
-public class STDuplicateUpdateProvider extends SpecialProvider {
+public class DuplicateUpdateProvider extends SpecialProvider {
 
-    public STDuplicateUpdateProvider(Class<?> mapperClass, MapperHelper mapperHelper) {
+    public DuplicateUpdateProvider(Class<?> mapperClass, MapperHelper mapperHelper) {
         super(mapperClass, mapperHelper);
     }
     public String duplicateSelective(MappedStatement ms) {
