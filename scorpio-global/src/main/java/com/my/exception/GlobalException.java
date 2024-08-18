@@ -14,6 +14,8 @@ public class GlobalException extends Exception {
 	private String extraMessage;
 	private LocalKey localConfigKey;
 
+	private String[] passValue;
+
 	public GlobalException(ResultCode resultCode) {
 		super(resultCode.getMessage());
 		this.code = resultCode.getCode();
@@ -30,6 +32,7 @@ public class GlobalException extends Exception {
 	}
 
 	public GlobalException(LocalKey localConfigKey, Throwable cause) {
+		super(localConfigKey.getKey(),cause);
 		this.localConfigKey = localConfigKey;
 	}
 
@@ -41,14 +44,15 @@ public class GlobalException extends Exception {
 	}
 
 	@Deprecated
-	public GlobalException(int code, String message, LocalKey localConfigKey, Throwable cause) {
-		super(message, cause);
+	public GlobalException(int code, String message, LocalKey localConfigKey) {
+		super(message);
 		this.code = code;
 		this.localConfigKey = localConfigKey;
+		this.extraMessage = localConfigKey.getDesc();
 	}
 
 
-	public GlobalException(int code, String message, String extraMessage,LocalKey localConfigKey, Throwable cause) {
+	public GlobalException(int code, String message, String extraMessage, LocalKey localConfigKey, Throwable cause) {
 		super(message, cause);
 		this.code = code;
 		this.extraMessage = extraMessage;
@@ -61,16 +65,23 @@ public class GlobalException extends Exception {
 	}
 
 	public GlobalException(ResultCode resultCode, LocalKey localConfigKey) {
-		this(resultCode.getCode(), resultCode.getMessage(), localConfigKey, null);
+		this(resultCode.getCode(), resultCode.getMessage(), localConfigKey);
 	}
 
-	@Deprecated
+	public GlobalException(ResultCode resultCode, LocalKey localConfigKey, String... passValue) {
+		super(resultCode.getMessage());
+		this.code = resultCode.getCode();
+		this.localConfigKey = localConfigKey;
+		this.extraMessage = localConfigKey.getDesc();
+		this.passValue = passValue;
+	}
+
 	public GlobalException(String extraMessage) {
-		this(ResultCode.SERVER_ERROR, extraMessage);
+		this(ResultCode.INTERNAL_SERVER_ERROR, extraMessage);
 	}
 
 	public GlobalException(LocalKey localConfigKey) {
-		this(ResultCode.SERVER_ERROR, localConfigKey);
+		this(ResultCode.INTERNAL_SERVER_ERROR, localConfigKey);
 	}
 
 	public int getCode() {
@@ -85,4 +96,7 @@ public class GlobalException extends Exception {
 		return localConfigKey;
 	}
 
+	public String[] getPassValue() {
+		return passValue;
+	}
 }

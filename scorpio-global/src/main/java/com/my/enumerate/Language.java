@@ -6,7 +6,7 @@ import java.util.*;
 
 import static java.util.Optional.*;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("unused")
 public enum Language {
     ZH_CN("zh_CN", "简体中文", "Simplified Chinese", "Tiếng Trung giản thể", "簡體中文", "중국어 간체", "簡体字中国語", "ภาษาจีนตัวย่อ", "Basitleştirilmiş Çince", "Chinês simplificado", "chino simplificado", "الصينية المبسطة", true),
 
@@ -45,8 +45,9 @@ public enum Language {
     private final String arabicDesc;
     private final Boolean enable;
 
-    private static Map<String, Language> languageMap = new HashMap<String, Language>();
-    private static Set<Language> enabledLanguage = new HashSet<Language>();
+    private static final Map<String, Language> languageMap = new HashMap<String, Language>();
+    @Getter
+    private static final Set<Language> enabledLanguage = new HashSet<Language>();
 
     static {
         for (Language languageEnum : Language.values()) {
@@ -80,30 +81,19 @@ public enum Language {
     }
 
     public String getMessage(Language language) {
-        switch (ofNullable(language).orElse(ZH_CN)) {
-            case EN:
-                return enDesc;
-            case VIETNAM:
-                return vietnamDesc;
-            case ZH_TW:
-                return zh_TWDesc;
-            case KOREA:
-                return koreaDesc;
-            case JAPANESE:
-                return japaneseDesc;
-            case THAI:
-                return thaiDesc;
-            case TURKISH:
-                return turkishDesc;
-            case PORTUGUESE:
-                return portugueseDesc;
-            case SPANISH:
-                return spanishDesc;
-            case ARABIC:
-                return arabicDesc;
-            default:
-                return desc;
-        }
+        return switch (ofNullable(language).orElse(ZH_CN)) {
+            case EN -> enDesc;
+            case VIETNAM -> vietnamDesc;
+            case ZH_TW -> zh_TWDesc;
+            case KOREA -> koreaDesc;
+            case JAPANESE -> japaneseDesc;
+            case THAI -> thaiDesc;
+            case TURKISH -> turkishDesc;
+            case PORTUGUESE -> portugueseDesc;
+            case SPANISH -> spanishDesc;
+            case ARABIC -> arabicDesc;
+            default -> desc;
+        };
     }
 
     public static List<String> getLanguageCode() {
@@ -120,10 +110,6 @@ public enum Language {
 
     public static Language getLanguage(String name) {
         return languageMap.get(name);
-    }
-
-    public static Set<Language> getEnabledLanguage() {
-        return enabledLanguage;
     }
 
 }
